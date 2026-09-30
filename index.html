@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>김다은 | Boston University</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1c2a22;
+    --muted: #5d6b63;
+    --green: #1f9d55;
+    --green-dark: #157a42;
+    --green-soft: #e8f6ee;
+    --line: #d9e6de;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif;
+    line-height: 1.65;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  header { padding: 56px 0 40px; border-bottom: 4px solid var(--green); }
+  .school { color: var(--green-dark); font-weight: 600; font-size: 0.95rem; margin-bottom: 14px; }
+  h1 { font-size: clamp(2.4rem, 10vw, 3.6rem); line-height: 1.1; letter-spacing: -0.02em; }
+  .sub { margin-top: 12px; color: var(--muted); font-size: 1.05rem; }
+  .tags { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: var(--green);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  section { padding: 36px 0 8px; }
+  h2 {
+    font-size: 1.25rem;
+    padding-left: 12px;
+    border-left: 5px solid var(--green);
+    margin-bottom: 18px;
+  }
+
+  .info { list-style: none; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .info li { display: flex; padding: 14px 18px; gap: 16px; }
+  .info li + li { border-top: 1px solid var(--line); }
+  .info .k { width: 64px; flex-shrink: 0; color: var(--green-dark); font-weight: 700; }
+
+  .hobbies { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .hobby {
+    background: var(--green-soft);
+    border-radius: 12px;
+    padding: 20px 8px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--green-dark);
+    word-break: keep-all;
+  }
+
+  .country { margin-bottom: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; }
+  .country h3 { font-size: 1.05rem; margin-bottom: 10px; color: var(--green-dark); }
+  .places { display: flex; flex-wrap: wrap; gap: 8px; }
+  .places span {
+    border: 1.5px solid var(--green);
+    color: var(--text);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+  }
+
+  footer { margin-top: 40px; padding: 24px 0 40px; border-top: 4px solid var(--green); color: var(--muted); font-size: 0.9rem; text-align: center; }
+
+  @media (max-width: 420px) {
+    header { padding: 40px 0 30px; }
+    .hobbies { gap: 8px; }
+    .hobby { padding: 16px 4px; font-size: 0.92rem; }
+    .info li { padding: 12px 14px; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="school">Boston University</p>
+      <h1>김다은</h1>
+      <p class="sub">안녕하세요, 저는 BU에서 생물학을 공부하고 있어요.</p>
+      <div class="tags">
+        <span class="tag">Biology</span>
+        <span class="tag">Senior</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>기본 정보</h2>
+      <ul class="info">
+        <li><span class="k">이름</span><span>김다은</span></li>
+        <li><span class="k">전공</span><span>Biology</span></li>
+        <li><span class="k">학년</span><span>Senior</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>취미</h2>
+      <div class="hobbies">
+        <div class="hobby">게임</div>
+        <div class="hobby">여행</div>
+        <div class="hobby">YouTube 시청</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>가봤던 나라</h2>
+      <div class="country">
+        <h3>한국</h3>
+      </div>
+      <div class="country">
+        <h3>일본</h3>
+        <div class="places">
+          <span>도쿄</span><span>오사카</span><span>교토</span><span>아오야마</span><span>이바라키</span>
+        </div>
+      </div>
+      <div class="country">
+        <h3>미국</h3>
+        <div class="places">
+          <span>LA</span><span>뉴욕</span><span>올랜도</span><span>시카고</span><span>미네소타</span><span>위스콘신</span>
+        </div>
+      </div>
+      <div class="country">
+        <h3>태국</h3>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 김다은 · Boston University</div>
+  </footer>
+</body>
+</html>

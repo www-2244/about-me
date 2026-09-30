@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>김다은 | Boston University</title>
+<script>
+  (function () {
+    var theme = "light";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved) theme = saved;
+      else if (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
+    } catch (e) {}
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
 <style>
   :root {
     --bg: #ffffff;
@@ -13,39 +24,75 @@
     --green-dark: #157a42;
     --green-soft: #e8f6ee;
     --line: #d9e6de;
+    --nav-bg: rgba(255, 255, 255, 0.92);
+  }
+  :root[data-theme="dark"] {
+    --bg: #101814;
+    --text: #e8f1ec;
+    --muted: #9bb0a4;
+    --green: #2ec071;
+    --green-dark: #4fd88e;
+    --green-soft: #18291f;
+    --line: #2a3c31;
+    --nav-bg: rgba(16, 24, 20, 0.92);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   body {
     background: var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif;
     line-height: 1.65;
     -webkit-text-size-adjust: 100%;
+    transition: background 0.25s, color 0.25s;
   }
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
 
-  header { padding: 56px 0 40px; border-bottom: 4px solid var(--green); }
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--nav-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 8px; }
+  .menu { display: flex; gap: 4px; }
+  .menu a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
+  .menu a:hover, .menu a.active { background: var(--green-soft); color: var(--green-dark); }
+  #theme-toggle {
+    border: 1.5px solid var(--green);
+    background: transparent;
+    color: var(--green-dark);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  #theme-toggle:hover { background: var(--green); color: #fff; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+  header { padding: 48px 0 40px; border-bottom: 4px solid var(--green); }
   .school { color: var(--green-dark); font-weight: 600; font-size: 0.95rem; margin-bottom: 14px; }
   h1 { font-size: clamp(2.4rem, 10vw, 3.6rem); line-height: 1.1; letter-spacing: -0.02em; }
   .sub { margin-top: 12px; color: var(--muted); font-size: 1.05rem; }
   .tags { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .tag {
-    background: var(--green);
-    color: #fff;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
+  .tag { background: var(--green); color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 0.9rem; font-weight: 600; }
 
-  section { padding: 36px 0 8px; }
-  h2 {
-    font-size: 1.25rem;
-    padding-left: 12px;
-    border-left: 5px solid var(--green);
-    margin-bottom: 18px;
-  }
+  section { padding: 44px 0 8px; }
+  h2 { font-size: 1.4rem; padding-left: 12px; border-left: 5px solid var(--green); margin-bottom: 22px; }
+  h3.block { font-size: 1.05rem; margin: 26px 0 12px; color: var(--green-dark); }
 
   .info { list-style: none; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
   .info li { display: flex; padding: 14px 18px; gap: 16px; }
@@ -53,39 +100,58 @@
   .info .k { width: 64px; flex-shrink: 0; color: var(--green-dark); font-weight: 700; }
 
   .hobbies { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .hobby {
-    background: var(--green-soft);
-    border-radius: 12px;
-    padding: 20px 8px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--green-dark);
-    word-break: keep-all;
-  }
+  .hobby { background: var(--green-soft); border-radius: 12px; padding: 20px 8px; text-align: center; font-weight: 700; color: var(--green-dark); word-break: keep-all; }
 
   .country { margin-bottom: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; }
   .country h3 { font-size: 1.05rem; margin-bottom: 10px; color: var(--green-dark); }
+  .country h3:last-child { margin-bottom: 0; }
   .places { display: flex; flex-wrap: wrap; gap: 8px; }
-  .places span {
-    border: 1.5px solid var(--green);
-    color: var(--text);
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-size: 0.92rem;
-  }
+  .places span { border: 1.5px solid var(--green); padding: 4px 12px; border-radius: 999px; font-size: 0.92rem; }
 
-  footer { margin-top: 40px; padding: 24px 0 40px; border-top: 4px solid var(--green); color: var(--muted); font-size: 0.9rem; text-align: center; }
+  .projects { display: grid; gap: 14px; }
+  .project { border: 1px solid var(--line); border-left: 5px solid var(--green); border-radius: 12px; padding: 18px; }
+  .project h3 { font-size: 1.05rem; margin-bottom: 6px; }
+  .project p { color: var(--muted); font-size: 0.95rem; }
+  .project .meta { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .project .meta span { background: var(--green-soft); color: var(--green-dark); font-size: 0.8rem; font-weight: 600; padding: 2px 10px; border-radius: 999px; }
+
+  .contact { list-style: none; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .contact li { display: flex; padding: 14px 18px; gap: 16px; }
+  .contact li + li { border-top: 1px solid var(--line); }
+  .contact .k { width: 72px; flex-shrink: 0; color: var(--green-dark); font-weight: 700; }
+  .contact a { color: var(--text); text-decoration-color: var(--green); text-underline-offset: 3px; word-break: break-all; }
+
+  footer { margin-top: 48px; padding: 24px 0 40px; border-top: 4px solid var(--green); color: var(--muted); font-size: 0.9rem; text-align: center; }
+  .visitors { margin-bottom: 8px; }
+  .visitors strong { color: var(--green-dark); font-size: 1.1rem; }
 
   @media (max-width: 420px) {
-    header { padding: 40px 0 30px; }
+    nav .wrap { padding: 0 12px; }
+    .menu a { padding: 8px 8px; font-size: 0.88rem; }
+    #theme-toggle { padding: 6px 10px; font-size: 0.8rem; }
+    header { padding: 36px 0 30px; }
     .hobbies { gap: 8px; }
     .hobby { padding: 16px 4px; font-size: 0.92rem; }
-    .info li { padding: 12px 14px; gap: 12px; }
+    .info li, .contact li { padding: 12px 14px; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    body { transition: none; }
   }
 </style>
 </head>
 <body>
+  <nav>
+    <div class="wrap">
+      <div class="menu">
+        <a href="#intro">소개</a>
+        <a href="#projects">프로젝트</a>
+        <a href="#contact">연락처</a>
+      </div>
+      <button id="theme-toggle" type="button" aria-pressed="false">다크 모드</button>
+    </div>
+  </nav>
+
   <header>
     <div class="wrap">
       <p class="school">Boston University</p>
@@ -99,29 +165,23 @@
   </header>
 
   <main class="wrap">
-    <section>
-      <h2>기본 정보</h2>
+    <section id="intro">
+      <h2>소개</h2>
       <ul class="info">
         <li><span class="k">이름</span><span>김다은</span></li>
         <li><span class="k">전공</span><span>Biology</span></li>
         <li><span class="k">학년</span><span>Senior</span></li>
       </ul>
-    </section>
 
-    <section>
-      <h2>취미</h2>
+      <h3 class="block">취미</h3>
       <div class="hobbies">
         <div class="hobby">게임</div>
         <div class="hobby">여행</div>
         <div class="hobby">YouTube 시청</div>
       </div>
-    </section>
 
-    <section>
-      <h2>가봤던 나라</h2>
-      <div class="country">
-        <h3>한국</h3>
-      </div>
+      <h3 class="block">가봤던 나라</h3>
+      <div class="country"><h3>한국</h3></div>
       <div class="country">
         <h3>일본</h3>
         <div class="places">
@@ -134,14 +194,102 @@
           <span>LA</span><span>뉴욕</span><span>올랜도</span><span>시카고</span><span>미네소타</span><span>위스콘신</span>
         </div>
       </div>
-      <div class="country">
-        <h3>태국</h3>
+      <div class="country"><h3>태국</h3></div>
+    </section>
+
+    <section id="projects">
+      <h2>프로젝트</h2>
+      <div class="projects">
+        <article class="project">
+          <h3>프로젝트 1 제목</h3>
+          <p>프로젝트에 대한 간단한 설명을 여기에 적어주세요.</p>
+          <div class="meta"><span>Biology</span><span>Research</span></div>
+        </article>
+        <article class="project">
+          <h3>프로젝트 2 제목</h3>
+          <p>프로젝트에 대한 간단한 설명을 여기에 적어주세요.</p>
+          <div class="meta"><span>Lab</span><span>Team</span></div>
+        </article>
+        <article class="project">
+          <h3>프로젝트 3 제목</h3>
+          <p>프로젝트에 대한 간단한 설명을 여기에 적어주세요.</p>
+          <div class="meta"><span>Personal</span></div>
+        </article>
       </div>
+    </section>
+
+    <section id="contact">
+      <h2>연락처</h2>
+      <ul class="contact">
+        <li><span class="k">이메일</span><a href="mailto:your-id@bu.edu">your-id@bu.edu</a></li>
+        <li><span class="k">Instagram</span><a href="#">@your_id</a></li>
+        <li><span class="k">LinkedIn</span><a href="#">linkedin.com/in/your-id</a></li>
+      </ul>
     </section>
   </main>
 
   <footer>
-    <div class="wrap">© 김다은 · Boston University</div>
+    <div class="wrap">
+      <p class="visitors">방문자 수 <strong id="visit-count">-</strong>회 <span>(이 브라우저 기준)</span></p>
+      <p>© 김다은 · Boston University</p>
+    </div>
   </footer>
+
+<script>
+  // 다크 모드 토글
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById("theme-toggle");
+
+    function render() {
+      var dark = root.getAttribute("data-theme") === "dark";
+      btn.textContent = dark ? "라이트 모드" : "다크 모드";
+      btn.setAttribute("aria-pressed", String(dark));
+    }
+
+    btn.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      render();
+    });
+    render();
+  })();
+
+  // 방문자 수 카운트 (브라우저 localStorage 기반, 세션당 1회 증가)
+  (function () {
+    var el = document.getElementById("visit-count");
+    var count = 0;
+    try {
+      count = parseInt(localStorage.getItem("visitCount"), 10) || 0;
+      if (!sessionStorage.getItem("counted")) {
+        count += 1;
+        localStorage.setItem("visitCount", String(count));
+        sessionStorage.setItem("counted", "1");
+      }
+    } catch (e) {
+      count = count || 1;
+    }
+    el.textContent = count.toLocaleString("ko-KR");
+  })();
+
+  // 스크롤 위치에 따라 메뉴 강조
+  (function () {
+    var links = document.querySelectorAll(".menu a");
+    var sections = Array.prototype.map.call(links, function (a) {
+      return document.querySelector(a.getAttribute("href"));
+    });
+
+    function update() {
+      var pos = window.scrollY + 120;
+      var current = 0;
+      sections.forEach(function (s, i) { if (s && s.offsetTop <= pos) current = i; });
+      links.forEach(function (a, i) { a.classList.toggle("active", i === current); });
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+</script>
 </body>
 </html>
